@@ -25,7 +25,7 @@ public class TowerReflectors : MonoBehaviour {
         if (tmpObj.GameObjectOwner == this.GetComponent<BaseGameObject>().GameObjectOwner)
         {
             // Redirect if it is a beam, else do nothing
-            if(tmpObj.GameObjType == BaseGameObject.GameObjectType.GAMEOBJ_LIGHT_BEAM)
+            if(tmpObj.GameObjType == BaseGameObject.GameObjectType.GAMEOBJ_PROJECTILE_LIGHT)
             {
                 // Create a beam at reflected angle
             }

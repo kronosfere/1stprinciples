@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileLight : BaseProjectile
-{
+public class Boundary : MonoBehaviour {
+
 	// Use this for initialization
 	void Start () {
 		
 	}
 	
 	// Update is called once per frame
-	override public void Update () {
-        Move();
+	void Update () {
+		
+	}
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+
     }
 }

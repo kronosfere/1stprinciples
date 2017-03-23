@@ -6,13 +6,25 @@ public class TowerLight : BaseGameObject {
 
     [SerializeField]
     float Cooldown_Fire;
+
+    [SerializeField]
+    float Projectile_Speed_Multiplier = 2.0f;
     
     private float Cooldown_Internal_Fire;
 
     void Fire()
     {
-        //GameObject Projectile = (GameObject)Instantiate(Resources.Load("Projectile_Light"));
-        Debug.Log("Fire");
+        try
+        {
+            GameObject Projectile = (GameObject)Instantiate(Resources.Load("Projectile/Projectile_Light"));
+            Projectile.transform.position = this.transform.position;
+            Projectile.GetComponent<ProjectileLight>().Projectile_Speed = Projectile.GetComponent<ProjectileLight>().Projectile_Speed * Projectile_Speed_Multiplier;
+        }
+
+        catch
+        {
+            Debug.Log("Projectile not created!");
+        }
     }
 
 	// Update is called once per frame

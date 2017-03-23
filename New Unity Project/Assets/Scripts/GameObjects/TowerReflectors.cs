@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerReflectors : MonoBehaviour {
+public class TowerReflectors : BaseGameObject {
 
     [SerializeField]
     float ReflectorAngle;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {

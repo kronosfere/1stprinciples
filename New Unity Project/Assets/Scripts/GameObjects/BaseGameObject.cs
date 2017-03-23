@@ -15,13 +15,13 @@ public class BaseGameObject : MonoBehaviour {
     [SerializeField]
     public GameObjectType GameObjType;
     [SerializeField]
-    public uint GameObjectOwner;
+    public PlayerData.PlayerIDEnum GameObjectOwner;
     [SerializeField]
     Quaternion GameObject_Rotation;
 
 	// Use this for initialization
 	void Start () {
-		
+        GameObjectOwner = GameObject.Find("PlayerData").GetComponent<PlayerData>().PlayerID;
 	}
 	
 	// Update is called once per frame

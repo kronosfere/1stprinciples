@@ -5,11 +5,11 @@ using UnityEngine;
 public class TowerSelectScript : BaseSelectableArea {
 
 	[SerializeField]
-
+	GameObject Selector;
 
 	void OnMouseDown()
 	{
-		Debug.Log("test");
+		Selector.SetActive(true);
 	}
 
 	// Use this for initialization

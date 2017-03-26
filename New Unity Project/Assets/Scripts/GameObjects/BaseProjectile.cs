@@ -5,19 +5,19 @@ using UnityEngine;
 public class BaseProjectile : BaseGameObject {
 
     [SerializeField]
-    Quaternion Projectile_Direction;
+    float Projectile_Angle;
 
     [SerializeField]
     public float Projectile_Speed = 1.0f;
 
     public virtual void Move()
     {
-        this.transform.Translate(Projectile_Direction.eulerAngles * Projectile_Speed * Time.deltaTime);
+        this.transform.Translate(Quaternion.Euler(0, 0, Projectile_Angle) * Vector3.up  * Projectile_Speed * Time.deltaTime);
     }
 
-    public virtual void Set_Projectile_Direction(Quaternion newDir)
+    public virtual void Set_Projectile_Direction(float newAngle)
     {
-        Projectile_Direction = newDir;
+        Projectile_Angle = newAngle;
     }
 
 	// Update is called once per frame

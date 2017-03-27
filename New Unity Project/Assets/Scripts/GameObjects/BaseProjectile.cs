@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseProjectile : BaseGameObject {
 
     [SerializeField]
-    float Projectile_Angle;
+    public float Projectile_Angle;
 
     [SerializeField]
     public float Projectile_Speed = 1.0f;
@@ -25,9 +25,9 @@ public class BaseProjectile : BaseGameObject {
         //Move();
 	}
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    virtual public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Bounds")
+        if (collision.gameObject.tag == "Bounds" || collision.gameObject.tag == "Ground")
         {
             Destroy(this.gameObject);
         }

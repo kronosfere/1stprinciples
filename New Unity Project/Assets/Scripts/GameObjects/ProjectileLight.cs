@@ -23,15 +23,22 @@ public class ProjectileLight : BaseProjectile
 
 		else if(collision.gameObject.tag == "Tower_Reflector")
 		{
-			Vector3 tmp = collision.gameObject.transform.localRotation * Vector3.up;
+			// If it collides on the mirror surface
+			if (Vector3.Dot(collision.gameObject.transform.up, Quaternion.Euler(0, 0, Projectile_Angle) * Vector3.up) > 0.0f)
+			{
+				Debug.Log(collision.gameObject.transform.up);
 
-			// If it is angled down
-			if(tmp.y > 0.0f)
-				Projectile_Angle -= 90;
+				if(collision.gameObject.transform.up.y > 0.0f)
+					Projectile_Angle -= 90.0f;
 
-			// If it is angled up
+				else
+					Projectile_Angle += 90.0f;
+			}
+
 			else
-				Projectile_Angle += 90;
+			{
+				Destroy(this.gameObject);
+			}
 		}
 	}
 }

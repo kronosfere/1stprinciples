@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ValueUpdateScript : MonoBehaviour {
+public class MirrorValueUpdateScript : MonoBehaviour {
 
 	[SerializeField]
 	Transform inputobj;
 	[SerializeField]
-	TowerLight outputobj;
+	GameObject outputobj;
 
 	// Use this for initialization
-	void Start ()
+	void Start()
 	{
-		
+
 	}
-	
+
 	// Update is called once per frame
-	void Update ()
+	void Update()
 	{
-		if(outputobj != null)
-			outputobj.Projectile_Angle = inputobj.transform.rotation.eulerAngles.z;
+		if (outputobj != null)
+			outputobj.transform.rotation = inputobj.transform.rotation;
 	}
 }

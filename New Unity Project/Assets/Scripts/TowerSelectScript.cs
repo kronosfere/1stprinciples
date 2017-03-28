@@ -19,6 +19,5 @@ public class TowerSelectScript : BaseSelectableArea {
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 }

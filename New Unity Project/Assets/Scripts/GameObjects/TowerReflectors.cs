@@ -16,20 +16,10 @@ public class TowerReflectors : BaseGameObject {
     {
         BaseGameObject tmpObj = collision.gameObject.GetComponent<BaseGameObject>();
 
-        // Check if the beam is the owner's
-        if (tmpObj.GameObjectOwner == this.GetComponent<BaseGameObject>().GameObjectOwner)
+        // Check if the beam is the owner's, if not owner's, take damage
+        if (tmpObj.GameObjectOwner != this.GetComponent<BaseGameObject>().GameObjectOwner)
         {
-            // Redirect if it is a beam, else do nothing
-            if(tmpObj.GameObjType == BaseGameObject.GameObjectType.GAMEOBJ_PROJECTILE_LIGHT)
-            {
-                // Create a beam at reflected angle
-            }
-        }
-
-        // Take damage if projectile is not owner's
-        else
-        {
-
+			// Take damage
         }
     }
 }

@@ -21,7 +21,7 @@ public class BaseGameObject : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GameObjectOwner = GameObject.Find("PlayerData").GetComponent<PlayerData>().PlayerID;
+        GameObjectOwner = GameObject.Find("GameController").GetComponent<PlayerData>().PlayerID;
 	}
 	
 	// Update is called once per frame

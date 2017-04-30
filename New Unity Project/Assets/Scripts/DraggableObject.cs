@@ -6,20 +6,31 @@ public class DraggableObject : MonoBehaviour {
 
 	private Quaternion originalRotation;
 	private float startAngle = 0;
+	private CameraDrag mainCamera;
 
 	public void Start()
 	{
 		originalRotation = this.transform.rotation;
+
+		mainCamera = GameObject.Find("Main Camera").GetComponent<CameraDrag>();
 	}
 
 	public void OnMouseDown()
 	{
 		InputIsDown();
+		mainCamera.dragDisable = true;
 	}
 
 	public void OnMouseDrag()
 	{
 		InputIsHeld();
+		mainCamera.dragDisable = true;
+	}
+
+	public void OnMouseUp()
+	{
+		mainCamera.dragDisable = false;
+		
 	}
 
 	public void InputIsDown()

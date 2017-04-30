@@ -16,6 +16,11 @@ public class ProjectileLight : BaseProjectile
 
 	override public void OnCollisionEnter2D(Collision2D collision)
 	{
+		// Create Particles
+		GameObject particles = (GameObject)Instantiate(Resources.Load("Particles/Particle_Collision_Light"));
+		particles.transform.position = this.transform.position;
+		Destroy(particles, 1.5f);
+
 		if (collision.gameObject.tag == "Bounds" || collision.gameObject.tag == "Ground")
 		{
 			Destroy(this.gameObject);
@@ -24,15 +29,13 @@ public class ProjectileLight : BaseProjectile
 		else if(collision.gameObject.tag == "Tower_Reflector")
 		{
 			// If it collides on the mirror surface
-			if (Vector3.Dot(collision.gameObject.transform.up, Quaternion.Euler(0, 0, Projectile_Angle) * Vector3.up) > 0.0f)
+			if (Vector3.Dot(collision.gameObject.transform.up, Quaternion.Euler(0, 0, this.gameObject.transform.eulerAngles.z) * Vector3.up) > 0.0f)
 			{
-				Debug.Log(collision.gameObject.transform.up);
-
-				if(collision.gameObject.transform.up.y > 0.0f)
-					Projectile_Angle -= 90.0f;
+				if (collision.gameObject.transform.up.y > 0.0f)
+					this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z - 90);
 
 				else
-					Projectile_Angle += 90.0f;
+					this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z + 90);
 			}
 
 			else

@@ -2,44 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerLight : BaseGameObject {
+public class TowerLight : BaseTower {
 
-    [SerializeField]
-    float Cooldown_Fire;
-
-    [SerializeField]
-    float Projectile_Speed_Multiplier = 2.0f;
 	[SerializeField]
-	public float Projectile_Angle;
+	float HoverRange;
+	[SerializeField]
+	float HoverSpeed;
 
-	public bool Is_Selected = false;
-    
-    private float Cooldown_Internal_Fire;
+	bool MovingUp = true;
+	float HoverMidPoint;
 
-    void Fire()
-    {
-        try
-        {
-            GameObject Projectile = (GameObject)Instantiate(Resources.Load("Projectile/Projectile_Light"));
-            Projectile.transform.position = this.transform.position;
-            Projectile.GetComponent<ProjectileLight>().Projectile_Speed = Projectile.GetComponent<ProjectileLight>().Projectile_Speed * Projectile_Speed_Multiplier;
-			Projectile.GetComponent<ProjectileLight>().Set_Projectile_Direction(Projectile_Angle);
-        }
+	private void Start()
+	{
+		BaseStart();
+		HoverMidPoint = this.transform.position.y;
+	}
 
-        catch
-        {
-            Debug.Log("Projectile not created!");
-        }
-    }
+	void Hover()
+	{
+		if (MovingUp)
+		{
+			Vector3 tmp = new Vector3(0, HoverSpeed * Time.deltaTime, 0);
+			this.transform.Translate(tmp);
 
-	// Update is called once per frame
-	void Update () {
-        Cooldown_Internal_Fire += Time.deltaTime;
+			if (HoverMidPoint + HoverRange < this.transform.position.y)
+				MovingUp = false;
+		}
 
-        if(Cooldown_Internal_Fire > Cooldown_Fire)
-        {
-            Cooldown_Internal_Fire = 0.0f;
-            Fire();
-        }
+		else
+		{
+			Vector3 tmp = new Vector3(0, -HoverSpeed * Time.deltaTime, 0);
+			this.transform.Translate(tmp);
+
+			if (HoverMidPoint - HoverRange > this.transform.position.y)
+				MovingUp = true;
+		}
+	}
+
+	void Update()
+	{
+		BaseUpdate();
+
+		Hover();
 	}
 }

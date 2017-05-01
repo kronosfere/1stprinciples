@@ -7,6 +7,8 @@ public class DragRotate : MonoBehaviour
 	private Quaternion originalRotation;
 	private float startAngle = 0;
 	private CameraDrag mainCamera;
+	[SerializeField]
+	bool affectParent;
 
 	public void Start()
 	{
@@ -35,8 +37,9 @@ public class DragRotate : MonoBehaviour
 
 	public void InputIsDown()
 	{
-		originalRotation = this.transform.rotation;
-		Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+		Transform trans = affectParent ? transform.parent : transform;
+        originalRotation = trans.rotation;
+		Vector3 screenPos = Camera.main.WorldToScreenPoint(trans.position);
 		Vector3 vector = Input.mousePosition - screenPos;
 		startAngle = Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
 		//startAngle -= Mathf.Atan2(transform.right.y, transform.right.x) * Mathf.Rad2Deg;  // uncomment to pop to where mouse is 
@@ -44,12 +47,13 @@ public class DragRotate : MonoBehaviour
 
 	public void InputIsHeld()
 	{
-		Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+		Transform trans = affectParent ? transform.parent : transform;
+		Vector3 screenPos = Camera.main.WorldToScreenPoint(trans.position);
 		Vector3 vector = Input.mousePosition - screenPos;
 		float angle = Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
-		Quaternion newRotation = Quaternion.AngleAxis(angle - startAngle, this.transform.forward);
+		Quaternion newRotation = Quaternion.AngleAxis(angle - startAngle, trans.forward);
 		newRotation.y = 0; //see comment from above 
 		newRotation.eulerAngles = new Vector3(0, 0, newRotation.eulerAngles.z);
-		this.transform.rotation = originalRotation * newRotation;
+		trans.rotation = originalRotation * newRotation;
 	}
 }

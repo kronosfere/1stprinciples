@@ -9,6 +9,8 @@ public class DragMove : MonoBehaviour
 	private CameraDrag mainCamera;
 	[SerializeField]
 	SpriteRenderer anchorSprite;
+	[SerializeField]
+	bool deletable = false;
 
 	public void Start()
 	{
@@ -35,6 +37,10 @@ public class DragMove : MonoBehaviour
 	{
 		mainCamera.dragDisable = false;
 		anchorSprite.color = new Color(anchorSprite.color.r, anchorSprite.color.g, anchorSprite.color.b, 0.5f);
+		if (deletable && Input.mousePosition.y < 135.0f)
+		{
+			Destroy(this.gameObject, 0.05f);
+		}
 	}
 
 	public void InputIsDown()

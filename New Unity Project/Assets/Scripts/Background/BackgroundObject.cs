@@ -23,6 +23,6 @@ public class BackgroundObject : MonoBehaviour
 		this.transform.Translate(tmp * Time.deltaTime);
 
 		if (this.transform.position.x < LeftBound)
-			Destroy(this);
+			Destroy(this.gameObject);
 	}
 }

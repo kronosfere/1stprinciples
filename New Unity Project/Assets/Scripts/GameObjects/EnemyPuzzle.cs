@@ -9,6 +9,8 @@ public class EnemyPuzzle : MonoBehaviour
 	float HoverRange;
 	[SerializeField]
 	float HoverSpeed;
+	[SerializeField]
+	int LoadNextLevel;
 
 	bool MovingUp = true;
 	float HoverMidPoint;
@@ -55,6 +57,11 @@ public class EnemyPuzzle : MonoBehaviour
 			}
 
 			Destroy(this);
+
+			if (LoadNextLevel != 0)
+				Application.LoadLevel(LoadNextLevel);
+			else
+				Application.Quit();
 		}
 	}
 

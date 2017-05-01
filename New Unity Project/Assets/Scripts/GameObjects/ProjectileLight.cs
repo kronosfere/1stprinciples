@@ -36,6 +36,11 @@ public class ProjectileLight : BaseProjectile
 
 				else
 					this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z + 90);
+				// Calculate reflection vector
+				//float DotProduct = Vector3.Dot((this.gameObject.transform.eulerAngles.z * Vector3.up), Vector3.Normalize(collision.gameObject.transform.up));
+				//Vector3 ReflectedVector = this.gameObject.transform.eulerAngles.z * Vector3.up - 2 * (DotProduct * collision.gameObject.transform.up);
+				//// Set Vector
+				//this.gameObject.transform.eulerAngles = ReflectedVector;
 			}
 
 			else

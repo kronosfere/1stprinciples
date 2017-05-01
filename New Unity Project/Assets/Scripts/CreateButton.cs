@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CreateButton : MonoBehaviour {
-	private GameObject instance;
+	//private GameObject instance;
 	// Use this for initialization
 	void Start () {
-		instance = this.transform.FindChild("Object").gameObject;
+		//instance = this.transform.FindChild("Object").gameObject;
 	}
 	
 	// Update is called once per frame
@@ -16,7 +16,7 @@ public class CreateButton : MonoBehaviour {
 
 	public void BtnCreateObject()
 	{
-		GameObject newObj = Instantiate(instance);
+		GameObject newObj = (GameObject)Instantiate(Resources.Load("Towers/LightReflectors"));
 		newObj.SetActive(true);
 		newObj.transform.position = Vector3.zero;
 	}

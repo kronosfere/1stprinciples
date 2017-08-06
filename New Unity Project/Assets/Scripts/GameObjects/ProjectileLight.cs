@@ -21,32 +21,30 @@ public class ProjectileLight : BaseProjectile
 		particles.transform.position = this.transform.position;
 		Destroy(particles, 1.5f);
 
-		if (collision.gameObject.tag == "Bounds" || collision.gameObject.tag == "Ground")
+		//if (collision.gameObject.tag == "Bounds") //|| collision.gameObject.tag == "Ground")
+		//{
+		//	Destroy(this.gameObject);
+		//}
+
+		//else if(collision.gameObject.tag == "Tower_Reflector")
+		if(collision.gameObject.tag == "Bounds")
 		{
-			Destroy(this.gameObject);
-		}
+			//if (collision.gameObject.transform.up.y > 0.0f)
+			//	this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z - 90);
 
-		else if(collision.gameObject.tag == "Tower_Reflector")
-		{
-			// If it collides on the mirror surface
-			if (Vector3.Dot(collision.gameObject.transform.up, Quaternion.Euler(0, 0, this.gameObject.transform.eulerAngles.z) * Vector3.up) > 0.0f)
-			{
-				if (collision.gameObject.transform.up.y > 0.0f)
-					this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z - 90);
+			//else
+			//	this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z + 90);
 
-				else
-					this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z + 90);
-				// Calculate reflection vector
-				//float DotProduct = Vector3.Dot((this.gameObject.transform.eulerAngles.z * Vector3.up), Vector3.Normalize(collision.gameObject.transform.up));
-				//Vector3 ReflectedVector = this.gameObject.transform.eulerAngles.z * Vector3.up - 2 * (DotProduct * collision.gameObject.transform.up);
-				//// Set Vector
-				//this.gameObject.transform.eulerAngles = ReflectedVector;
-			}
+			// Calculate reflection vector
+			float DotProduct = Vector3.Dot(this.transform.rotation * Vector2.up, Vector3.Normalize(collision.gameObject.transform.up));
+			Vector3 ReflectedVector = this.transform.rotation * Vector2.up - 2 * (DotProduct * collision.gameObject.transform.up);
+			// Set Vector
+			this.gameObject.transform.up = ReflectedVector;
 
-			else
-			{
-				Destroy(this.gameObject);
-			}
+			//Debug.Log(this.transform.rotation * Vector2.up);
+			//Debug.Log(collision.gameObject.transform.up);
+			//Vector3 tmpReflect = Vector3.Reflect(this.transform.rotation * Vector2.up, collision.gameObject.transform.up);
+			//this.gameObject.transform.eulerAngles = tmpReflect;
 		}
 	}
 }

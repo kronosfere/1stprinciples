@@ -12,13 +12,13 @@ public class BaseProjectile : BaseGameObject {
 
     public virtual void Move()
     {
-		this.transform.Translate(Vector3.up  * Projectile_Speed * Time.deltaTime);
+		transform.position += this.transform.up  * Projectile_Speed * Time.deltaTime;
     }
 
     public virtual void Set_Projectile_Direction(float newAngle)
     {
 		Projectile_Angle = newAngle;
-		this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, Projectile_Angle);
+		this.transform.up = Quaternion.Euler(0, 0, newAngle) * Vector3.up;
 	}
 
 	// Update is called once per frame

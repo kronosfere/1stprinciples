@@ -21,30 +21,36 @@ public class ProjectileLight : BaseProjectile
 		particles.transform.position = this.transform.position;
 		Destroy(particles, 1.5f);
 
-		//if (collision.gameObject.tag == "Bounds") //|| collision.gameObject.tag == "Ground")
-		//{
-		//	Destroy(this.gameObject);
-		//}
-
 		//else if(collision.gameObject.tag == "Tower_Reflector")
 		if(collision.gameObject.tag == "Bounds")
 		{
-			//if (collision.gameObject.transform.up.y > 0.0f)
-			//	this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z - 90);
-
-			//else
-			//	this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z + 90);
-
 			// Calculate reflection vector
 			float DotProduct = Vector3.Dot(this.transform.rotation * Vector2.up, Vector3.Normalize(collision.gameObject.transform.up));
 			Vector3 ReflectedVector = this.transform.rotation * Vector2.up - 2 * (DotProduct * collision.gameObject.transform.up);
 			// Set Vector
 			this.gameObject.transform.up = ReflectedVector;
+		}
 
-			//Debug.Log(this.transform.rotation * Vector2.up);
-			//Debug.Log(collision.gameObject.transform.up);
-			//Vector3 tmpReflect = Vector3.Reflect(this.transform.rotation * Vector2.up, collision.gameObject.transform.up);
-			//this.gameObject.transform.eulerAngles = tmpReflect;
+		if(collision.gameObject.tag == "Lens")
+		{
+			Color currentCol = this.GetComponent<SpriteRenderer>().color;
+
+			if (currentCol == Color.white)
+				currentCol = Color.black;
+
+			Color colliderCol = collision.gameObject.GetComponent<SpriteRenderer>().color;
+			currentCol.r = (int)(currentCol.r + 0.5f) | (int)(colliderCol.r + 0.5f);
+			currentCol.g = (int)(currentCol.g + 0.5f) | (int)(colliderCol.g + 0.5f);
+			currentCol.b = (int)(currentCol.b + 0.5f) | (int)(colliderCol.b + 0.5f);
+			this.GetComponent<SpriteRenderer>().color = currentCol;
+
+			// Ignore collision but edit the color
+			Physics2D.IgnoreCollision(this.GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>());
+		}
+
+		if(collision.gameObject.tag == "Projectile")
+		{
+			Physics2D.IgnoreCollision(this.GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>());
 		}
 	}
 }

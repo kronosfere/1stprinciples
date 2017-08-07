@@ -10,6 +10,8 @@ public class BaseTower : BaseGameObject
 	float Projectile_Speed_Multiplier = 2.0f;
 	[SerializeField]
 	public float Projectile_Angle;
+	[SerializeField]
+	float ProjectileLifeTime = 0.0f;
 
 	public bool Is_Selected = false;
 	private float Cooldown_Internal_Fire;
@@ -32,6 +34,10 @@ public class BaseTower : BaseGameObject
 			// Sets the projectile direction
 			Projectile.GetComponent<ProjectileLight>().Set_Projectile_Direction(Projectile_Angle);
 			Projectile.GetComponent<ProjectileLight>().Projectile_Speed = Projectile.GetComponent<ProjectileLight>().Projectile_Speed * Projectile_Speed_Multiplier;
+
+			// Destroy bullet if ProjectileLifeTime is specified
+			if (ProjectileLifeTime > 0.01f)
+				DestroyObject(Projectile, ProjectileLifeTime);
 		}
 
 		catch

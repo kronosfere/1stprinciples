@@ -47,11 +47,44 @@ public class DragMove : MonoBehaviour
 	{
 		Vector3 clickWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		startDelta = this.transform.position - clickWorld;
+
+		try
+		{
+			GameObject deletObj = GameObject.FindGameObjectWithTag("DeleteButton");
+
+			if (!deletObj)
+				Debug.LogException(new System.Exception("Unable to find the Delete Button component!"));
+
+			deletObj.GetComponent<DeleteButton>().TrackingThisLens = this.gameObject;
+		}
+
+		catch
+		{
+			Debug.Log("Unexpected error with Delete Button / Input down for object");
+		}
 	}
 
 	public void InputIsHeld()
 	{
 		Vector3 clickWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		this.transform.position = clickWorld + startDelta;
+
+		try
+		{
+			GameObject UITracker = GameObject.FindGameObjectWithTag("UITracker");
+
+			if (!UITracker)
+				Debug.LogException(new System.Exception("Unable to find the UITracker!"));
+
+			UITracker.transform.position = this.transform.position;
+			Color tmp = UITracker.GetComponent<SpriteRenderer>().color;
+			tmp.a = 1.0f;
+			UITracker.GetComponent<SpriteRenderer>().color = tmp;
+		}
+
+		catch
+		{
+			Debug.Log("Unexpected error with Delete Button / Input down for object");
+		}
 	}
 }

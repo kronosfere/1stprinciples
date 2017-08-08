@@ -80,10 +80,29 @@ public class EnemyPuzzle : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "Projectile" && isDead == false)
 		{
-			isDead = true;
+			Color tmpCol = collision.gameObject.GetComponent<SpriteRenderer>().color;
+			Color tmpthis = this.gameObject.GetComponent<SpriteRenderer>().color;
 
-			// Destroy that projectile
-			Destroy(collision.gameObject);
+			bool checkR = tmpthis.r > 0.1f ? true : false;
+			bool checkG = tmpthis.g > 0.1f ? true : false;
+			bool checkB = tmpthis.b > 0.1f ? true : false;
+
+			bool sameColor = true;
+
+			if (checkR && tmpCol.r < 0.1f || !checkR && tmpCol.r > 0.1f)
+				sameColor = false;
+			if (checkG && tmpCol.g < 0.1f || !checkG && tmpCol.g > 0.1f)
+				sameColor = false;
+			if (checkB && tmpCol.b < 0.1f || !checkB && tmpCol.b > 0.1f)
+				sameColor = false;
+
+			if (sameColor)
+			{
+				isDead = true;
+
+				// Destroy that projectile
+				Destroy(collision.gameObject);
+			}
 		}
 	}
 }

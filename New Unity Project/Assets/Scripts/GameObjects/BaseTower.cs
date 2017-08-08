@@ -37,7 +37,10 @@ public class BaseTower : BaseGameObject
 
 			// Destroy bullet if ProjectileLifeTime is specified
 			if (ProjectileLifeTime > 0.01f)
+			{
+				Projectile.GetComponent<ProjectileLight>().SetLifeTime(ProjectileLifeTime);
 				DestroyObject(Projectile, ProjectileLifeTime);
+			}
 		}
 
 		catch

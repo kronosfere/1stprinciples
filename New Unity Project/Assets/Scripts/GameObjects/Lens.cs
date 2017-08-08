@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Lens : MonoBehaviour {
 
-	[SerializeField]
-	Color CurrentCol;
-
 	// Use this for initialization
 	void Start () {
-		this.gameObject.GetComponent<SpriteRenderer>().color = CurrentCol;
+	}
+
+	public void SetColor(Color col)
+	{
+		this.gameObject.GetComponent<SpriteRenderer>().color = col;
 	}
 	
 	// Update is called once per frame
